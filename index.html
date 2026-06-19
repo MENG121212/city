@@ -6,313 +6,266 @@
 <title>城市人格测试 · 你属于哪座城</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", -apple-system, sans-serif;
-  background: #faf5ef;
-  color: #2a2528;
-  line-height: 1.75;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  overflow-x: hidden;
-}
-
+body { font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", -apple-system, sans-serif; background: #faf5ef; color: #2a2528; line-height: 1.75; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
 .container { max-width: 640px; margin: 0 auto; padding: 0 0 16px; }
-
-.hero {
-  background: linear-gradient(160deg, #1e2330 0%, #2a3040 40%, #1e2330 100%);
-  padding: 48px 24px 40px;
-  text-align: center; position: relative; overflow: hidden;
-}
-.hero::before { content:''; position:absolute; top:-80px; right:-60px; width:220px; height:220px; border-radius:50%; background:rgba(196,147,106,0.08); }
-.hero::after { content:''; position:absolute; bottom:-50px; left:-40px; width:150px; height:150px; border-radius:50%; background:rgba(196,147,106,0.05); }
-.hero-badge { display:inline-block; background:rgba(196,147,106,0.18); color:#c4936a; font-size:10px; font-weight:700; letter-spacing:3px; padding:4px 16px; border-radius:20px; margin-bottom:16px; text-transform:uppercase; }
-.hero h1 { font-size:26px; font-weight:300; color:#e8ddd0; letter-spacing:6px; margin-bottom:8px; position:relative; z-index:1; }
-.hero h1 span { font-weight:700; color:#c4936a; }
-.hero .hero-sub { font-size:12px; color:rgba(232,221,208,0.55); position:relative; z-index:1; letter-spacing:1px; }
-
-.progress-wrap { background:#fff; border-radius:12px; margin:-16px 16px 16px; padding:16px 20px; box-shadow:0 2px 16px rgba(30,35,48,0.04); position:relative; z-index:2; display:flex; align-items:center; gap:14px; }
-.progress-bar { flex:1; height:4px; background:#ede6dc; border-radius:4px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,#c4936a,#d4a880); border-radius:4px; transition:width 0.35s cubic-bezier(0.4,0,0.2,1); }
-.progress-num { font-size:12px; font-weight:700; color:#c4936a; min-width:42px; text-align:right; }
-
-.intro-card { background:#fff; border-radius:14px; padding:24px 20px; margin:0 16px 0; box-shadow:0 1px 12px rgba(30,35,48,0.03); }
-.intro-card h2 { font-size:16px; font-weight:700; color:#1e2330; margin-bottom:6px; }
-.intro-card .intro-p { font-size:13px; color:#6a5e58; line-height:1.7; }
-.intro-highlights { display:flex; gap:10px; margin-top:16px; }
-.intro-hl { flex:1; background:#faf5ef; border-radius:10px; padding:12px 8px; text-align:center; }
-.intro-hl .hl-num { font-size:18px; font-weight:700; color:#c4936a; }
-.intro-hl .hl-lab { font-size:10px; color:#8a7a70; margin-top:2px; }
-
-.btn { display:inline-block; padding:11px 32px; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; outline:none; transition:all 0.25s cubic-bezier(0.4,0,0.2,1); letter-spacing:0.5px; -webkit-tap-highlight-color:transparent; }
-.btn-primary { background:#1e2330; color:#e8ddd0; box-shadow:0 3px 16px rgba(30,35,48,0.18); font-size:15px; padding:13px 48px; letter-spacing:1px; }
-.btn-primary:hover { background:#2a3040; transform:translateY(-1px); }
-.btn-primary:active { transform:translateY(0); }
-.btn-ghost { background:transparent; color:#6a5e58; border:1.5px solid #e0d4c8; padding:10px 28px; font-size:13px; }
-.btn-ghost:hover { border-color:#c4936a; color:#c4936a; background:#fdfaf7; }
-
-.q-card { background:#fff; border-radius:14px; padding:22px 20px; margin:0 16px 14px; box-shadow:0 1px 12px rgba(30,35,48,0.03); }
-.q-label { font-size:10px; color:#c4936a; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
-.q-title { font-size:15px; font-weight:600; color:#1e2330; margin-bottom:16px; line-height:1.5; }
-.opt-list { display:flex; flex-direction:column; gap:8px; }
-.opt-item { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; cursor:pointer; transition:all 0.18s cubic-bezier(0.4,0,0.2,1); border:1.5px solid #ede6dc; background:#fdfbf8; outline:none; text-align:left; font-size:13px; color:#4a3e38; font-family:inherit; width:100%; }
-.opt-item:hover { border-color:#d4b898; background:#fdf9f5; }
-.opt-item.selected { border-color:#c4936a; background:#fdf7f1; color:#2a2528; font-weight:500; }
-.opt-idx { width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; background:#ede6dc; color:#8a7a70; transition:all 0.18s; }
-.opt-item.selected .opt-idx { background:#c4936a; color:#fff; }
-
-.page-nav { display:flex; justify-content:space-between; align-items:center; margin:6px 16px 16px; }
-.page-nav .page-hint { font-size:12px; color:#a09088; font-weight:500; }
-
-.submit-wrap { text-align:center; padding:10px 0; }
-.submit-hint { font-size:12px; color:#c4936a; margin:8px 16px; display:none; background:#fdf7f1; padding:10px 16px; border-radius:10px; }
-
-.result-hero { background:linear-gradient(160deg,#1e2330 0%,#2a3040 100%); padding:40px 24px 44px; text-align:center; }
-.result-hero .rh-badge { display:inline-block; font-size:10px; color:rgba(196,147,106,0.7); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
-.result-hero .rh-city { font-size:32px; font-weight:300; color:#e8ddd0; letter-spacing:4px; margin-bottom:4px; }
-.result-hero .rh-city strong { font-weight:700; color:#c4936a; }
-.result-hero .rh-en { font-size:11px; color:rgba(232,221,208,0.4); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
-.match-circle { width:80px; height:80px; border-radius:50%; margin:0 auto 8px; background:conic-gradient(#c4936a 0deg, #c4936a var(--pct), transparent var(--pct)); display:flex; align-items:center; justify-content:center; position:relative; }
-.match-circle::after { content:''; width:64px; height:64px; border-radius:50%; background:#1e2330; position:absolute; }
-.match-val { position:relative; z-index:1; font-size:22px; font-weight:700; color:#c4936a; }
-.match-lab { font-size:10px; color:rgba(232,221,208,0.5); margin-top:6px; letter-spacing:1px; }
-
-.tag-wrap { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:10px 0 4px; }
-.tag { display:inline-block; padding:4px 14px; border-radius:16px; font-size:11px; font-weight:600; border:1px solid rgba(196,147,106,0.25); color:#c4936a; background:rgba(196,147,106,0.06); }
-
-.city-desc { background:#fff; border-radius:14px; padding:20px; margin:0 16px 14px; box-shadow:0 1px 12px rgba(30,35,48,0.03); font-size:13px; color:#5a4e48; line-height:1.8; }
-
-.tips-card { background:#fff; border-radius:14px; padding:20px; margin:0 16px 14px; box-shadow:0 1px 12px rgba(30,35,48,0.03); }
-.tips-card h3 { font-size:14px; font-weight:700; color:#1e2330; margin-bottom:12px; }
-.tip-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid #f5eee6; font-size:12px; color:#5a4e48; }
-.tip-row:last-child { border-bottom:none; }
-.tip-icon { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; background:#faf5ef; color:#c4936a; font-weight:700; }
-
-.other-cities { background:#fff; border-radius:14px; padding:20px; margin:0 16px 16px; box-shadow:0 1px 12px rgba(30,35,48,0.03); }
-.other-cities h3 { font-size:14px; font-weight:700; color:#1e2330; margin-bottom:10px; }
-.oc-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f5eee6; font-size:12px; }
-.oc-row:last-child { border-bottom:none; }
-.oc-bar-wrap { flex:1; height:5px; background:#ede6dc; border-radius:5px; overflow:hidden; }
-.oc-bar { height:100%; border-radius:5px; background:#c4936a; transition:width 0.6s cubic-bezier(0.4,0,0.2,1); }
-.oc-pct { font-size:11px; color:#8a7a70; font-weight:600; min-width:36px; text-align:right; }
-
-.final-actions { text-align:center; padding:10px 0 20px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-.disclaimer { text-align:center; padding:0 16px; font-size:9px; color:#c0b0a8; line-height:1.6; }
-
-@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-.anim { animation:fadeUp 0.55s cubic-bezier(0.4,0,0.2,1) both; }
-.anim-d1 { animation-delay:0.05s; }
-.anim-d2 { animation-delay:0.12s; }
-.anim-d3 { animation-delay:0.2s; }
-
-@media (max-width:500px) {
-  .hero { padding:36px 18px 30px; }
-  .hero h1 { font-size:22px; letter-spacing:4px; }
-  .rh-city { font-size:26px; }
-  .q-card { padding:18px 14px; margin:0 10px 10px; }
-  .opt-item { padding:10px 12px; font-size:12px; }
-  .intro-card { margin:0 10px 0; }
-}
-
-@media (prefers-color-scheme:dark) {
-  body { background:#14161c; color:#d4c8c0; }
-  .progress-wrap { background:#1c1e26; box-shadow:0 2px 16px rgba(0,0,0,0.4); }
-  .progress-bar { background:#2a2c36; }
-  .intro-card { background:#1c1e26; box-shadow:0 1px 12px rgba(0,0,0,0.3); }
-  .intro-card h2 { color:#e8ddd0; }
-  .intro-card .intro-p { color:#a09088; }
-  .intro-hl { background:#22242c; }
-  .intro-hl .hl-lab { color:#908078; }
-  .q-card { background:#1c1e26; box-shadow:0 1px 12px rgba(0,0,0,0.3); }
-  .q-title { color:#e8ddd0; }
-  .opt-item { background:#1c1e26; border-color:#2a2c36; color:#b0a098; }
-  .opt-item:hover { border-color:#5a4a38; background:#22242c; }
-  .opt-item.selected { border-color:#c4936a; background:#222018; color:#d4c8c0; }
-  .opt-idx { background:#2a2c36; color:#908078; }
-  .city-desc { background:#1c1e26; color:#b0a098; box-shadow:0 1px 12px rgba(0,0,0,0.3); }
-  .tips-card { background:#1c1e26; box-shadow:0 1px 12px rgba(0,0,0,0.3); }
-  .tips-card h3 { color:#e8ddd0; }
-  .tip-row { color:#b0a098; border-bottom-color:#2a2c36; }
-  .tip-icon { background:#22242c; }
-  .other-cities { background:#1c1e26; box-shadow:0 1px 12px rgba(0,0,0,0.3); }
-  .other-cities h3 { color:#e8ddd0; }
-  .oc-row { border-bottom-color:#2a2c36; }
-  .oc-bar-wrap { background:#2a2c36; }
-  .oc-pct { color:#908078; }
-  .btn-ghost { border-color:#2a2c36; color:#908078; }
-  .btn-ghost:hover { border-color:#c4936a; color:#c4936a; background:#1c1e26; }
-  .page-nav .page-hint { color:#808890; }
+.hero { background: linear-gradient(160deg, #1e2330 0%, #2a3040 40%, #1e2330 100%); padding: 48px 24px 40px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -80px; right: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(196,147,106,0.08); }
+.hero::after { content: ''; position: absolute; bottom: -50px; left: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(196,147,106,0.05); }
+.hero-badge { display: inline-block; background: rgba(196,147,106,0.18); color: #c4936a; font-size: 10px; font-weight: 700; letter-spacing: 3px; padding: 4px 16px; border-radius: 20px; margin-bottom: 16px; }
+.hero h1 { font-size: 26px; font-weight: 300; color: #e8ddd0; letter-spacing: 6px; margin-bottom: 8px; z-index: 1; position: relative; }
+.hero h1 span { font-weight: 700; color: #c4936a; }
+.hero .hero-sub { font-size: 12px; color: rgba(232,221,208,0.55); z-index: 1; position: relative; letter-spacing: 1px; }
+.progress-wrap { background: #fff; border-radius: 12px; margin: -16px 16px 16px; padding: 16px 20px; box-shadow: 0 2px 16px rgba(30,35,48,0.04); z-index: 2; position: relative; display: flex; align-items: center; gap: 14px; }
+.progress-bar { flex: 1; height: 4px; background: #ede6dc; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #c4936a, #d4a880); border-radius: 4px; transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
+.progress-num { font-size: 12px; font-weight: 700; color: #c4936a; min-width: 42px; text-align: right; }
+.intro-card { background: #fff; border-radius: 14px; padding: 24px 20px; margin: 0 16px 0; box-shadow: 0 1px 12px rgba(30,35,48,0.03); }
+.intro-card h2 { font-size: 16px; font-weight: 700; color: #1e2330; margin-bottom: 6px; }
+.intro-card .intro-p { font-size: 13px; color: #6a5e58; line-height: 1.7; }
+.intro-highlights { display: flex; gap: 10px; margin-top: 16px; }
+.intro-hl { flex: 1; background: #faf5ef; border-radius: 10px; padding: 12px 8px; text-align: center; }
+.intro-hl .hl-num { font-size: 18px; font-weight: 700; color: #c4936a; }
+.intro-hl .hl-lab { font-size: 10px; color: #8a7a70; margin-top: 2px; }
+.btn { display: inline-block; padding: 11px 32px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; outline: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent; }
+.btn-primary { background: #1e2330; color: #e8ddd0; box-shadow: 0 3px 16px rgba(30,35,48,0.18); font-size: 15px; padding: 13px 48px; letter-spacing: 1px; }
+.btn-primary:hover { background: #2a3040; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+.btn-ghost { background: transparent; color: #6a5e58; border: 1.5px solid #e0d4c8; padding: 10px 28px; font-size: 13px; }
+.btn-ghost:hover { border-color: #c4936a; color: #c4936a; background: #fdfaf7; }
+.q-card { background: #fff; border-radius: 14px; padding: 22px 20px; margin: 0 16px 14px; box-shadow: 0 1px 12px rgba(30,35,48,0.03); }
+.q-label { font-size: 10px; color: #c4936a; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.q-title { font-size: 15px; font-weight: 600; color: #1e2330; margin-bottom: 16px; line-height: 1.5; }
+.opt-list { display: flex; flex-direction: column; gap: 8px; }
+.opt-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; cursor: pointer; transition: all 0.18s cubic-bezier(0.4,0,0.2,1); border: 1.5px solid #ede6dc; background: #fdfbf8; outline: none; text-align: left; font-size: 13px; color: #4a3e38; font-family: inherit; width: 100%; }
+.opt-item:hover { border-color: #d4b898; background: #fdf9f5; }
+.opt-item.selected { border-color: #c4936a; background: #fdf7f1; color: #2a2528; font-weight: 500; }
+.opt-idx { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; background: #ede6dc; color: #8a7a70; transition: all 0.18s; }
+.opt-item.selected .opt-idx { background: #c4936a; color: #fff; }
+.page-nav { display: flex; justify-content: space-between; align-items: center; margin: 6px 16px 16px; }
+.page-nav .page-hint { font-size: 12px; color: #a09088; font-weight: 500; }
+.submit-hint { font-size: 12px; color: #c4936a; margin: 8px 16px; display: none; background: #fdf7f1; padding: 10px 16px; border-radius: 10px; }
+.result-hero { background: linear-gradient(160deg, #1e2330 0%, #2a3040 100%); padding: 40px 24px 44px; text-align: center; }
+.result-hero .rh-badge { display: inline-block; font-size: 10px; color: rgba(196,147,106,0.7); letter-spacing: 3px; margin-bottom: 14px; }
+.result-hero .rh-city { font-size: 32px; font-weight: 300; color: #e8ddd0; letter-spacing: 4px; margin-bottom: 4px; }
+.result-hero .rh-city strong { font-weight: 700; color: #c4936a; }
+.result-hero .rh-en { font-size: 11px; color: rgba(232,221,208,0.4); letter-spacing: 2px; margin-bottom: 16px; }
+.match-circle { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 8px; background: conic-gradient(#c4936a 0deg, #c4936a var(--pct), transparent var(--pct)); display: flex; align-items: center; justify-content: center; position: relative; }
+.match-circle::after { content: ''; width: 64px; height: 64px; border-radius: 50%; background: #1e2330; position: absolute; }
+.match-val { position: relative; z-index: 1; font-size: 22px; font-weight: 700; color: #c4936a; }
+.match-lab { font-size: 10px; color: rgba(232,221,208,0.5); margin-top: 6px; letter-spacing: 1px; }
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 10px 0 4px; }
+.tag { display: inline-block; padding: 4px 14px; border-radius: 16px; font-size: 11px; font-weight: 600; border: 1px solid rgba(196,147,106,0.25); color: #c4936a; background: rgba(196,147,106,0.06); }
+.city-desc { background: #fff; border-radius: 14px; padding: 20px; margin: 0 16px 14px; box-shadow: 0 1px 12px rgba(30,35,48,0.03); font-size: 13px; color: #5a4e48; line-height: 1.8; }
+.tips-card { background: #fff; border-radius: 14px; padding: 20px; margin: 0 16px 14px; box-shadow: 0 1px 12px rgba(30,35,48,0.03); }
+.tips-card h3 { font-size: 14px; font-weight: 700; color: #1e2330; margin-bottom: 12px; }
+.tip-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f5eee6; font-size: 12px; color: #5a4e48; }
+.tip-row:last-child { border-bottom: none; }
+.tip-icon { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; background: #faf5ef; color: #c4936a; font-weight: 700; }
+.other-cities { background: #fff; border-radius: 14px; padding: 20px; margin: 0 16px 16px; box-shadow: 0 1px 12px rgba(30,35,48,0.03); }
+.other-cities h3 { font-size: 14px; font-weight: 700; color: #1e2330; margin-bottom: 10px; }
+.oc-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f5eee6; font-size: 12px; }
+.oc-row:last-child { border-bottom: none; }
+.oc-bar-wrap { flex: 1; height: 5px; background: #ede6dc; border-radius: 5px; overflow: hidden; }
+.oc-bar { height: 100%; border-radius: 5px; background: #c4936a; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+.oc-pct { font-size: 11px; color: #8a7a70; font-weight: 600; min-width: 36px; text-align: right; }
+.final-actions { text-align: center; padding: 10px 0 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.disclaimer { text-align: center; padding: 0 16px; font-size: 9px; color: #c0b0a8; line-height: 1.6; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.anim { animation: fadeUp 0.55s cubic-bezier(0.4,0,0.2,1) both; }
+.anim-d1 { animation-delay: 0.05s; } .anim-d2 { animation-delay: 0.12s; } .anim-d3 { animation-delay: 0.2s; }
+@media (max-width: 500px) { .hero { padding: 36px 18px 30px; } .hero h1 { font-size: 22px; letter-spacing: 4px; } .rh-city { font-size: 26px; } .q-card { padding: 18px 14px; margin: 0 10px 10px; } .opt-item { padding: 10px 12px; font-size: 12px; } .intro-card { margin: 0 10px 0; } }
+@media (prefers-color-scheme: dark) {
+  body { background: #14161c; color: #d4c8c0; }
+  .progress-wrap,.q-card,.intro-card,.city-desc,.tips-card,.other-cities { background: #1c1e26; box-shadow: 0 1px 12px rgba(0,0,0,0.3); }
+  .progress-bar,.oc-bar-wrap { background: #2a2c36; }
+  .intro-card h2,.q-title,.tips-card h3,.other-cities h3 { color: #e8ddd0; }
+  .intro-card .intro-p,.city-desc,.tip-row,.oc-row { color: #b0a098; border-bottom-color: #2a2c36; }
+  .intro-hl,.tip-icon { background: #22242c; }
+  .intro-hl .hl-lab,.oc-pct,.opt-idx { color: #908078; }
+  .opt-item { background: #1c1e26; border-color: #2a2c36; color: #b0a098; }
+  .opt-item:hover { border-color: #5a4a38; background: #22242c; }
+  .opt-item.selected { border-color: #c4936a; background: #222018; color: #d4c8c0; }
+  .btn-ghost { border-color: #2a2c36; color: #908078; }
+  .btn-ghost:hover { border-color: #c4936a; color: #c4936a; }
+  .page-nav .page-hint { color: #808890; }
 }
 </style>
 </head>
 <body>
-
 <div class="container">
-
-<div class="hero">
-  <div class="hero-badge">City Persona</div>
-  <h1>你的灵魂<span>属于哪座城</span></h1>
-  <p class="hero-sub">12 道题 · 9 座中国城市 · 发现你的城市人格</p>
-</div>
+<div class="hero"><div class="hero-badge">City Persona</div><h1>你的灵魂<span>属于哪座城</span></h1><p class="hero-sub">40 道题 · 16 座中国城市 · 深度发现你的城市人格</p></div>
 
 <div id="page-intro">
   <div class="intro-card">
-    <h2>每座城市都有性格，你也一样</h2>
-    <p class="intro-p">成都的安逸、深圳的奋斗、上海的精致、重庆的江湖气……在中国，没有两座城市的气质是重复的。通过 12 个生活场景的选择，看看哪座城的灵魂最像你。</p>
+    <h2>16 座城市，16 种灵魂</h2>
+    <p class="intro-p">有人骨子里是上海的精致与分寸，有人血液里流着重庆的江湖与直爽。从北国的豪迈到南国的松弛，从沿海的进取到内陆的安逸——这片土地上，每座城都是一种活法。40 道深度问题，帮你找到与你灵魂最契合的那座城。</p>
     <div class="intro-highlights">
-      <div class="intro-hl"><div class="hl-num">9</div><div class="hl-lab">座城市</div></div>
-      <div class="intro-hl"><div class="hl-num">12</div><div class="hl-lab">道选择题</div></div>
-      <div class="intro-hl"><div class="hl-num">2</div><div class="hl-lab">分钟完成</div></div>
+      <div class="intro-hl"><div class="hl-num">16</div><div class="hl-lab">座城市</div></div>
+      <div class="intro-hl"><div class="hl-num">40</div><div class="hl-lab">道选择题</div></div>
+      <div class="intro-hl"><div class="hl-num">5</div><div class="hl-lab">分钟完成</div></div>
     </div>
   </div>
-  <div style="text-align:center;padding:18px 16px 24px;">
-    <button class="btn btn-primary" onclick="start()">开始探索</button>
-  </div>
+  <div style="text-align:center;padding:18px 16px 24px;"><button class="btn btn-primary" onclick="start()">开始探索</button></div>
 </div>
 
 <div id="page-quiz" style="display:none;">
-  <div class="progress-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="bar-fill" style="width:0%"></div></div>
-    <div class="progress-num" id="bar-num">0/12</div>
-  </div>
+  <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="bar-fill" style="width:0%"></div></div><div class="progress-num" id="bar-num">0/40</div></div>
   <div class="q-card" id="q-card"></div>
-  <div class="page-nav">
-    <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">上一题</button>
-    <span class="page-hint" id="page-hint"></span>
-    <button class="btn btn-ghost" id="btn-next" onclick="nav(1)">下一题</button>
-  </div>
+  <div class="page-nav"><button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)">上一题</button><span class="page-hint" id="page-hint"></span><button class="btn btn-ghost" id="btn-next" onclick="nav(1)">下一题</button></div>
 </div>
 
 <div id="page-submit" style="display:none;">
-  <div class="intro-card" style="text-align:center;">
-    <h2>准备就绪</h2>
-    <p class="intro-p">全部 12 题已完成，点击下方查看你的城市人格</p>
-    <p class="submit-hint" id="submit-hint"></p>
-    <button class="btn btn-primary" onclick="submitTest()" style="margin-top:10px;">揭晓答案</button>
-    <button class="btn btn-ghost" onclick="goBack()" style="margin-top:6px;">返回修改</button>
-  </div>
+  <div class="intro-card" style="text-align:center;"><h2>准备就绪</h2><p class="intro-p">全部 40 题已完成，点击下方查看你的城市人格</p><p class="submit-hint" id="submit-hint"></p><button class="btn btn-primary" onclick="submitTest()" style="margin-top:10px;">揭晓答案</button><button class="btn btn-ghost" onclick="goBack()" style="margin-top:6px;">返回修改</button></div>
 </div>
 
 <div id="page-result" style="display:none;"><div id="result-content"></div></div>
-
 <div class="disclaimer" style="padding:16px;">本测试为趣味心理游戏，结果仅供娱乐参考</div>
-
 </div>
 
 <script>
+// 16 cities: [上海,北京,成都,深圳,杭州,西安,重庆,厦门,广州,南京,长沙,昆明,哈尔滨,武汉,苏州,青岛]
+var cityKeys = ["shanghai","beijing","chengdu","shenzhen","hangzhou","xian","chongqing","xiamen","guangzhou","nanjing","changsha","kunming","haerbin","wuhan","suzhou","qingdao"];
+
 var Q = [
-  {
-    t:"周末的清晨，你最想怎样度过？",
-    o:["睡到自然醒，到街头茶馆泡杯盖碗茶，巴适地坐一上午","去胡同或老巷里吃地道早点，感受一座城的苏醒","早早去健身房或咖啡馆，然后高效处理自己的项目",
-       "约上朋友去喝早茶，虾饺凤爪慢慢叹"]
-  },
-  {
-    t:"朋友会怎么形容你的社交风格？",
-    o:["低调实在，朋友不多但个个都是十年以上的交情","热情仗义，聚会的灵魂人物，有局就缺不了你","进退有度，什么圈子都能聊几句但始终有分寸",
-       "真诚文艺，更爱三两好友深聊，不习惯喧闹的场面"]
-  },
-  {
-    t:"旅行时，你最看重什么？",
-    o:["吃——打卡所有本地人才知道的神级小店","历史——逛博物馆和古迹，感受千年底蕴","氛围——去最潮的街区、最火的概念店","风景——找一个安静的地方发呆就很满足"]
-  },
-  {
-    t:"工作中面对一个棘手项目，你的反应？",
-    o:["先约关键人吃饭喝茶聊聊，关系理顺了事情自然成","列清单拆解任务，按优先级逐个击破，效率第一","不慌，泡杯茶把思路理清楚，稳扎稳打慢慢来",
-       "翻翻过去的案例，从经验里找最优解法"]
-  },
-  {
-    t:"你理想中的家是什么样子？",
-    o:["高层大平层，落地窗俯瞰城市天际线，智能家电全副武装","带小院的房子，种满花草养只猫，安静舒适最重要","老城区烟火气足的地段，出门就是热闹的街坊邻里",
-       "海边或岛上，每天推开窗就是海风"]
-  },
-  {
-    t:"面对一个完全陌生的人，你的态度是？",
-    o:["客气有礼貌，先观察一段时间再决定要不要深交","自然随和，对方主动我就聊，不主动也不尴尬","天生自来熟，三分钟就能找到共同话题",
-       "直接说明来意，目的明确不兜圈子"]
-  },
-  {
-    t:"选一种最能代表你的音乐风格？",
-    o:["民谣——有故事、有人间烟火、有远方的诗","电子或嘻哈——节奏快、态度直接、不拖泥带水","爵士——精致慵懒、不紧不慢、有自己的味道",
-       "古典或国风——底蕴深厚、耐得住细品"]
-  },
-  {
-    t:"你最不能忍受什么？",
-    o:["不靠谱——答应的事做不到","没有边界感——不懂分寸让人不舒服","太卷——生活已经够累了为什么还要卷","平庸——什么都是凑合、差不多就行"]
-  },
-  {
-    t:"突然有了一笔闲钱，第一件事？",
-    o:["投资理财或搞个副业，让钱生钱才是正事","换个更好的住处或装修一下，提升居住品质","吃顿好的、买点心仪的东西、请朋友聚一聚",
-       "存一半，剩下的去环游中国"]
-  },
-  {
-    t:"深夜失眠的时候，在想什么？",
-    o:["复盘今天的得失，规划明天的 to-do","琢磨新的搞钱机会、副业方向、下一步怎么走","人生的意义是什么？我真正想过什么样的生活",
-       "翻翻老照片、想想老朋友，感触涌上心头"]
-  },
-  {
-    t:"在一段关系里，你最看重什么？",
-    o:["义气和忠诚——说了就算数，不背叛是底线","自由和空间——在一起但互不束缚，舒服最重要","懂生活、会享受——能一起吃喝玩乐的人最对味",
-       "灵魂共鸣——可以聊到天亮也不觉得闷"]
-  },
-  {
-    t:"如果给自己一句人生注脚？",
-    o:["「做人嘛，最紧要开心」","「干了再说」——行动力是第一生产力","「一辈子很短，要和有趣的人在一起」",
-       "「大事不糊涂，小事不计较」"]
-  }
+{t:"周末早上 10 点，你通常在哪里？",o:["在咖啡馆或书店，享受属于自己的安静时光","菜市场或早市，感受人间烟火气","健身房或跑步，完了还要处理几个工作消息","还在床上，周末不睡懒觉是犯罪"]},
+{t:"工作日下班后，你更想做什么？",o:["回家做顿饭或点个外卖，看剧放松","约三五好友撸串喝酒，吐槽一天的糟心事","去健身房或者学个新技能，不卷睡不着","江边/湖边散步，一个人放空"]},
+{t:"你怎么看待「早睡早起」？",o:["我想，但我做不到——夜晚才是属于我的时间","已经在执行了，规律作息是自律的第一步","看心情，活得舒服比什么都重要","早起可以，但要有一碗热气腾腾的早餐等着我"]},
+{t:"你的房间/书桌通常是什么状态？",o:["东西不多但每件都有来头，整体风格统一","不算整洁但我知道每样东西在哪里","井井有条一尘不染，乱一点我就难受","堆满书和资料，但乱中有序，是一种舒适的有序"]},
+{t:"一天中你效率最高的时段？",o:["深夜——万籁俱寂，思路最清晰","早上——趁别人还没醒把事情干完","下午——慢慢进入状态，不急","不分时段，deadline 前效率自动拉满"]},
+{t:"朋友会怎么形容你的性格？",o:["温和有礼，相处舒服但总觉得有一层距离","热情仗义，出了事第一个想到找你帮忙","低调靠谱，话不多但答应的事一定做到","幽默风趣，有你在的饭局不会冷场"]},
+{t:"在一个全是陌生人的聚会上，你会？",o:["安静地待在角落，有人过来就礼貌聊几句","主动找看起来有趣的人搭话，很快就能熟络","找一个顺眼的人深聊，不喜欢泛泛社交","先观察一圈，再决定融入哪个小圈子"]},
+{t:"你最受不了哪种人？",o:["不守时不守信——答应的事做不到","没边界感——不懂分寸让人尴尬","爱抱怨——负能量爆棚还不想改变","装——明明很普通非要端着"]},
+{t:"你维持友谊的方式是？",o:["不常联系，但心里有对方，有事一定到","定期组局约饭，不见面不热闹","朋友圈点赞评论，微信偶尔分享有趣的东西","记住朋友的生日和重要日子，准时送上祝福"]},
+{t:"别人找你帮忙，你的态度是？",o:["能帮就帮，不会计较太多","看关系——亲近的人义不容辞，一般的量力而行","先评估自己的时间和能力，答应了一定做到","直接说明能不能帮，不拖泥带水"]},
+{t:"你对「内卷」的态度？",o:["不卷不行——环境如此，躺平就会被淘汰","想卷但卷不动——身心俱疲但不得不跟","坦然接受——做好自己的事就够了，不和别人比","反感——生活不应该只有工作，该享受就享受"]},
+{t:"加了很多班之后，你是什么心态？",o:["欣慰——项目有进展，升职加薪在路上了","麻木——习惯了，打工人哪有不加班的","愤怒——这是在浪费我的生命","算了——吃点好的犒劳自己，明天又是新的一天"]},
+{t:"工作中你最看重什么？",o:["成长空间——能不能学到东西、能不能往上走","团队氛围——和什么样的人一起做事很重要","薪资待遇——干活就是为了赚钱，不画饼","工作意义——做的事要对得起自己的时间"]},
+{t:"如果负责的项目失败了，你的反应？",o:["立刻复盘，找出问题根源，避免下一次","先缓一缓，吃顿好的休息一下再想","自责但不会沉溺太久，明天继续干","约几个同事喝一杯，边喝边聊到底哪里出了问题"]},
+{t:"你对「稳定工作」怎么看？",o:["挺好的，有安全感，可以好好规划生活","看什么稳定——温水煮青蛙就算了","不是我的菜——我喜欢变化和挑战","稳定是基础，但副业一定要搞起来"]},
+{t:"发工资后的第一件事？",o:["转入理财或储蓄账户，先存再花","还信用卡/花呗，然后看看剩多少","吃顿好的犒劳自己，辛苦了一个月","买一件心仪已久的东西，取悦自己很重要"]},
+{t:"你对名牌/奢侈品的态度？",o:["喜欢但不痴迷——有能力就买，没能力不强求","实用主义——东西好用就行，牌子不重要","偶尔奖励自己一件，生活需要仪式感","看重设计和品质，但讨厌大 logo 炫富"]},
+{t:"出去吃饭，你优先考虑什么？",o:["好吃——味道是第一位的，环境不重要","环境——要有氛围，吃饭是享受不是填饱肚子","性价比——好吃不贵才是王道","新鲜感——没吃过的店、没试过的菜"]},
+{t:"你怎么看「攒钱买房」这事？",o:["必须的——有房才有家，安全感是自己的","随缘——买得起就买，买不起租也能好好生活","太累了——为了一套房子牺牲生活质量不值得","在规划了——我有详细的存钱和看房计划"]},
+{t:"朋友找你借钱，你的态度是？",o:["救急不救穷——真遇到困难一定帮","看人——靠谱的朋友二话不说，不熟的不借","量力而行——在自己承受范围内能帮就帮","直接拒绝——谈钱伤感情，不如一开始就说清楚"]},
+{t:"你最喜欢的旅行方式？",o:["一个人背包——自由自在，想去哪去哪","和最好的朋友/伴侣——分享旅途才有趣","精心规划——攻略做好、机票酒店提前订","说走就走——不计划太多反而有惊喜"]},
+{t:"旅行中最重要的是什么？",o:["吃——打卡所有本地人才知道的店","看——风景和人文都要感受一遍","拍——留下好看的照片就是旅行的意义","感受——不赶行程，和当地人聊天最有收获"]},
+{t:"旅行中拍照发朋友圈的频率？",o:["经常发——好看的照片不分享等于白拍","偶尔发一两张——记录一下就好","几乎不发——自己享受就够了","精心编辑九宫格——我的朋友圈是作品集"]},
+{t:"你最喜欢哪种风景？",o:["城市天际线——万家灯火的繁华让人兴奋","山川湖海——大自然是治愈一切的解药","古镇老街——时间慢下来的感觉真好","海边——咸咸的海风和无限的远方"]},
+{t:"对「说走就走」的旅行态度？",o:["太冲动了——我还是喜欢提前规划","偶尔可以——生活需要一些即兴的浪漫","经常这么做——周末买张票就出发","想但不敢——工作和责任不允许我任性"]},
+{t:"恋爱中你最看重什么？",o:["忠诚和安全感——不出轨是底线","自由和空间——在一起但互不束缚","三观一致——能聊到一起最重要","开心——在一起不开心谈什么恋爱"]},
+{t:"吵架后你的处理方式是？",o:["冷静分析——谁的错谁认，讲道理","先冷静一下——给彼此空间，等情绪平复再说","立刻沟通——问题不过夜，吵完必须聊明白","吃顿好的——没什么是一顿火锅解决不了的"]},
+{t:"对「异地恋」的态度？",o:["可以接受——真爱经得起距离考验","不可能——感情需要陪伴，异地太煎熬","看情况——短期可以，长期免谈","随缘——感情的事说不准，遇到了再说"]},
+{t:"你怎么向伴侣表达爱意？",o:["行动派——默默把事情做好，不需要说太多","语言派——会直接说「我爱你」和甜言蜜语","物质派——看到合适的东西就买给对方","细节派——记住 TA 的喜好和习惯，润物细无声"]},
+{t:"理想伴侣最吸引你的特质？",o:["聪明有内涵——聊天永远不腻","温柔顾家——让人有安全感","有趣好玩——在一起永远不会无聊","有追求有事业——上进心让人着迷"]},
+{t:"如果明天是世界末日，今天你会？",o:["和最爱的人在一起，安安静静度过","疯狂一把——把想做但不敢做的事全做了","照常过——反正都要死了，不如保持体面","组织一场大 party——最后一天要热热闹闹的"]},
+{t:"你最害怕什么？",o:["一事无成——老了回头看，发现自己什么都没留下","失去重要的人——爱人和朋友的离开","被束缚——失去自由的活着最可怕","平庸——变成自己曾经最看不上的人"]},
+{t:"成功的定义对你来说？",o:["财务自由——不用为钱发愁，想去哪去哪","做自己喜欢的事——热爱的工作就是成功","被认可——在自己领域做到顶尖","家庭幸福——家人健康平安就是最大的成功"]},
+{t:"你对「躺平」的态度？",o:["理解但不认同——人生还是需要一点追求","想躺但躺不平——焦虑让人停不下来","正在躺——降低欲望，活得更轻松","躺平是另一种清醒——不随波逐流地卷"]},
+{t:"10 年后你希望自己是什么状态？",o:["在自己的领域有一席之地，受人尊敬","有足够的积蓄和被动收入，生活从容","开一家自己的小店/工作室，做喜欢的事","环游世界，或者至少不用每天打卡上班"]},
+{t:"用一句话形容你自己？",o:["表面平静，内心汹涌","人狠话不多","知足常乐，随遇而安","永远在路上，停不下来的那种"]},
+{t:"别人经常夸你什么？",o:["靠谱——交给你的事不用担心","有趣——和你在一起很开心","有品味——穿的用的都好看","聪明——学东西快、看问题准"]},
+{t:"你觉得自己最大的缺点？",o:["太要强——什么都想自己扛","太懒——拖延症晚期","太直——说话不过脑子","太敏感——容易想太多"]},
+{t:"什么情况下你会感到焦虑？",o:["事情不在掌控范围内的时候","看到同龄人比自己混得好的时候","要在大庭广众下讲话的时候","钱不够用的时候"]},
+{t:"如果有一个超能力，你选？",o:["瞬间移动——想去哪就去哪，不堵车","读心术——知道别人到底在想什么","时间暂停——在别人停滞的时候做自己的事","过目不忘——学什么都快，考试轻松过"]}
 ];
 
-// weights[qIdx][optIdx] = [上海,北京,成都,深圳,杭州,西安,重庆,厦门,广州]
-var weights = [
-  [[0,0,2,0,0,0,0,1,0], [0,2,0,0,0,1,0,0,0], [0,0,0,2,0,0,0,0,1], [0,0,0,0,0,0,1,0,2]],
-  [[0,0,0,0,0,1,0,0,2], [0,0,1,0,0,0,2,0,0], [1,1,0,0,0,0,0,0,0], [0,0,0,0,2,0,0,2,0]],
-  [[0,0,0,0,0,0,1,0,2], [0,0,0,0,0,2,0,0,1], [1,0,0,1,0,0,0,0,0], [0,0,0,0,1,0,0,2,0]],
-  [[0,2,0,0,0,0,1,0,0], [0,0,0,2,0,0,0,0,0], [0,0,2,0,1,0,0,0,0], [0,0,0,0,0,2,0,0,1]],
-  [[2,0,0,1,0,0,0,0,0], [0,0,1,0,2,0,0,0,0], [0,0,0,0,0,0,1,0,2], [0,0,0,0,0,0,0,3,0]],
-  [[1,1,0,0,0,0,0,0,0], [0,0,0,0,2,1,0,0,0], [0,0,2,0,0,0,2,0,0], [0,0,0,2,0,0,0,0,1]],
-  [[0,0,0,0,0,2,0,1,0], [0,0,0,2,0,0,1,0,0], [1,0,1,0,0,0,0,0,0], [0,2,0,0,1,0,0,0,0]],
-  [[0,2,0,0,0,0,0,0,1], [1,0,0,0,0,0,0,1,0], [0,0,2,0,1,0,0,0,0], [0,0,0,2,0,0,1,0,0]],
-  [[0,0,0,2,0,0,0,0,0], [0,0,0,0,2,0,0,1,0], [0,0,1,0,0,0,2,0,0], [0,0,0,0,0,2,0,0,1]],
-  [[1,0,0,2,0,0,0,0,0], [0,0,0,1,0,0,0,0,2], [0,0,0,0,2,0,0,1,0], [0,0,1,0,0,2,0,0,0]],
-  [[0,1,0,0,0,0,2,0,0], [1,0,0,0,0,0,0,1,0], [0,0,2,0,0,0,0,0,1], [0,0,0,0,2,1,0,0,0]],
-  [[0,0,1,0,0,0,0,0,2], [0,0,0,2,0,0,1,0,0], [0,0,0,0,1,0,0,2,0], [0,2,0,0,0,0,0,0,0]]
+// weights[qIdx][optIdx] = [上海,北京,成都,深圳,杭州,西安,重庆,厦门,广州,南京,长沙,昆明,哈尔滨,武汉,苏州,青岛]
+var W = [
+[[0,0,0,0,0,0,0,2,0,1,0,1,0,0,1,0],[1,0,2,0,0,0,1,0,2,0,1,0,0,0,0,0],[0,0,0,2,0,0,0,0,0,1,0,0,1,0,0,1],[0,0,2,0,0,0,1,0,0,0,1,2,0,1,0,0]],
+[[1,0,1,0,2,0,0,1,1,0,0,0,0,0,1,0],[0,1,1,0,0,0,2,0,0,0,2,0,2,1,0,0],[0,0,0,2,0,0,0,0,0,1,1,0,0,1,0,1],[0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,1]],
+[[0,0,0,1,0,0,1,0,0,0,2,0,0,1,0,0],[0,1,0,2,0,0,0,0,1,1,0,0,1,0,0,0],[0,0,2,0,1,0,0,1,0,0,0,1,0,0,1,0],[0,0,1,0,0,0,0,0,2,0,1,0,0,1,0,0]],
+[[1,0,0,0,1,0,0,1,0,0,0,0,0,0,2,1],[0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0],[1,0,0,1,0,0,0,0,0,1,0,0,1,0,1,0],[0,1,0,0,0,0,0,0,0,2,0,0,0,1,0,0]],
+[[0,0,0,1,0,0,0,0,1,0,2,0,0,0,0,0],[1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,2,0,1,0,0,1,0,0,0,2,0,0,0,0],[0,0,0,0,0,0,2,0,0,0,1,0,0,1,0,0]],
+[[1,0,0,0,1,0,0,1,0,1,0,0,0,0,1,0],[0,2,0,0,0,0,2,0,0,0,1,0,2,1,0,0],[0,1,0,0,0,1,0,0,2,1,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,1]],
+[[1,0,0,0,1,0,0,1,0,1,0,0,0,0,1,0],[0,0,1,0,0,0,2,0,0,0,2,0,1,1,0,0],[0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1],[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,1]],
+[[0,2,0,0,0,0,0,0,1,1,0,0,0,0,0,0],[1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1],[0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0],[0,0,0,1,0,0,0,0,0,0,0,0,2,1,0,0]],
+[[1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0],[0,0,1,0,1,0,2,0,0,0,1,1,0,0,0,0],[0,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0],[0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0]],
+[[0,0,1,0,0,0,1,0,2,0,0,0,0,1,0,0],[0,2,0,0,0,0,0,0,0,0,0,0,2,1,0,1],[1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0]],
+[[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1],[0,0,1,0,1,1,0,1,0,1,0,1,0,0,0,0],[0,0,2,0,1,0,1,1,1,0,0,2,0,0,0,0]],
+[[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0],[0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0],[0,0,1,0,0,0,1,0,2,0,1,0,0,0,0,0]],
+[[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,1],[0,1,0,0,2,0,0,1,0,1,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0],[0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1]],
+[[1,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,1,0,0,0,1,0,2,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0],[0,0,1,0,0,0,2,0,0,0,0,0,0,1,0,0]],
+[[0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0],[0,0,1,0,1,0,0,1,0,0,0,1,0,0,1,0],[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1]],
+[[1,0,0,2,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,1,0,0,0,1,0,0,0,2,0,0,1,0,0],[0,0,1,0,0,0,1,0,2,0,1,1,0,0,0,0],[0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1]],
+[[1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0],[0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0]],
+[[0,0,1,0,0,0,1,0,2,0,1,0,0,1,0,0],[0,0,0,0,1,0,0,1,0,1,0,0,0,0,2,1],[0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0],[0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0]],
+[[0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1],[0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0]],
+[[0,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0]],
+[[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2],[0,0,1,0,0,0,1,1,1,0,0,2,0,0,0,0],[1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0]],
+[[0,0,1,0,0,0,1,0,2,0,1,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1],[1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0],[0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0]],
+[[1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],[0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0]],
+[[1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0],[0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0],[0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1]],
+[[0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0],[1,0,0,0,1,0,0,2,0,1,0,0,0,0,0,0],[0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0]],
+[[0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0],[0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0]],
+[[1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0],[0,1,0,0,0,0,1,0,0,0,0,0,2,0,0,0],[0,0,1,0,0,0,0,0,2,0,0,1,0,0,0,0]],
+[[1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0],[0,1,0,0,0,0,1,0,0,0,0,0,2,0,0,0],[0,0,0,0,1,0,0,2,1,1,0,0,0,0,1,0]],
+[[0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0],[0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0]],
+[[0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,1,0,1,0,0,2,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1]],
+[[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,0,0,2,0,0,0,0],[1,0,0,2,0,0,0,0,1,0,0,0,0,0,0,0],[0,1,0,0,0,1,0,0,0,2,0,0,0,0,0,0]],
+[[0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0],[0,0,1,0,1,0,0,2,0,0,0,1,0,0,0,0],[0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0]],
+[[1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],[0,1,0,0,0,0,1,0,0,0,0,0,2,0,0,0],[0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0]],
+[[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0]],
+[[1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0],[0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1]],
+[[1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0],[0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1]],
+[[1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0],[0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0],[0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0]],
+[[1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0],[0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0],[0,0,1,0,1,0,0,2,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0]]
 ];
-
-var cityKeys = ["shanghai","beijing","chengdu","shenzhen","hangzhou","xian","chongqing","xiamen","guangzhou"];
 
 var cities = {
-  shanghai:{name:"上海",en:"Shanghai",tags:["精致","分寸感","效率","摩登","务实"],
-    desc:"你的灵魂属于上海。你讲究生活品质和做事效率，分寸感拿捏得刚好——不卑不亢，不冷也不过度热情。你看似精致讲究，骨子里却是实干派。在喧嚣的城市里，你始终保有自己的节奏和标准。",
-    tips:["你的分寸感是优点，但偶尔放下「体面」，和朋友吐吐槽会更轻松","效率是你最强的武器，但有些事——比如一段关系——慢一点反而更好","保持对世界的好奇心，上海之外还有更广阔的舞台"]},
-  beijing:{name:"北京",en:"Beijing",tags:["大气","局气","传统","规矩","厚重"],
-    desc:"你的灵魂属于北京。你讲究规矩和体面，心里有杆秤——什么事该怎么办，你门儿清。你看重承诺和信义，做人做事不喜欢花哨，更喜欢实在。你身上有一种不怒自威的厚重感，让人信赖。",
-    tips:["你的靠谱让人敬佩，但偶尔放下架子，生活会多一些烟火气","规则是骨架，但不要让它变成束缚——有些小「出格」也是人生","身边有一群信得过的人，是你最大的财富，好好珍惜"]},
-  chengdu:{name:"成都",en:"Chengdu",tags:["安逸","巴适","包容","懂生活","烟火气"],
-    desc:"你的灵魂属于成都。你是真正的生活家——懂得忙里偷闲，也知道享受当下的每一刻。你不追求内卷，相信人生是用来体验的，而不是用来焦虑的。你的松弛感，让身边所有人都觉得舒服自在。",
-    tips:["你的安逸是天赋技能，但偶尔需要一点「紧迫感」，重要的事别拖延","你的包容让很多人愿意靠近你，但也记得给自己留点独处时间","你活出了很多人羡慕的样子，继续保持，但别忘了还有诗和远方"]},
-  shenzhen:{name:"深圳",en:"Shenzhen",tags:["奋斗","创新","务实","年轻","行动派"],
-    desc:"你的灵魂属于深圳。你是天生的实干家——不纠结过去、不空谈理想，想了就去做，做了就要成。你相信努力能改变命运，也相信这个时代给了普通人机会。你的行动力和执行力，是同辈中的天花板。",
-    tips:["你的拼劲让人佩服，但记得定期给自己「关掉电源」充充电","效率不是一切，偶尔慢下来看看路边的风景，不会影响你到达终点","找到一个能理解你野心、也愿意陪你一起奋斗的人"]},
-  hangzhou:{name:"杭州",en:"Hangzhou",tags:["温润","诗意","精致","灵动","沉静"],
-    desc:"你的灵魂属于杭州。你身上有一种江南的诗意和温润——不张扬、不攻击，但内心丰盈。你喜欢有美感的东西，注重生活品质和内心感受。你不急着证明什么，因为你知道好东西需要时间沉淀。",
-    tips:["你的细腻是天赋，试着把感受写下来或拍下来，会有人被你的灵气打动","偶尔跳出舒适区，去闯一闯，你的温润配上一点锋芒会更迷人","找一个能和你细水长流的人，你的温柔值得被好好珍惜"]},
-  xian:{name:"西安",en:"Xi'an",tags:["厚重","沉稳","底蕴","不张扬","念旧"],
-    desc:"你的灵魂属于西安。你骨子里有一种厚重的底蕴——不急着追赶潮流，因为你相信时间自会证明真正的价值。你念旧、重感情，做人做事有自己的原则，不轻易动摇。你的沉稳，在这个浮躁的时代很难得。",
-    tips:["你的厚重是财富，但偶尔尝试新鲜事物，会打开新世界的大门","念旧是好事，但不要因为过去而错过了当下的机会和人","你不需要站在 C 位，但你的分量，时间会证明"]},
-  chongqing:{name:"重庆",en:"Chongqing",tags:["江湖气","直爽","热烈","立体","生命力"],
-    desc:"你的灵魂属于重庆。你身上有一种江湖儿女的直爽和热烈——有话直说、有气就出、有爱就追。你不喜欢拐弯抹角，凡事讲究一个痛快。你的生命力和感染力，让周围的人都觉得活着真带劲。",
-    tips:["你的直爽很解压，但偶尔收一收锋芒，有些关系需要一点柔软","你的热情和行动力是你的超级武器，找到对的方向集中发力","你适合找一个能和你一起疯、也能在你暴躁时给你一杯冰水的人"]},
-  xiamen:{name:"厦门",en:"Xiamen",tags:["文艺","清新","慢节奏","小资","宁静"],
-    desc:"你的灵魂属于厦门。你是天生的文艺生活家——喜欢安静、享受独处、有自己的精神世界。你不太在意别人的眼光，更在意自己的感受。生活对你来说是一首需要慢慢品读的诗，而不是一本催着翻页的工作手册。",
-    tips:["你的慢节奏在快时代里是一种奢侈，守护好它，但也记得偶尔加速","你的感受力很强，试着用创作输出——写作、摄影、音乐都好","你不需要太多朋友，但你需要一个懂你电量消耗模式的人"]},
-  guangzhou:{name:"广州",en:"Guangzhou",tags:["务实","低调","美食","人情味","松弛"],
-    desc:"你的灵魂属于广州。你是真正的低调实力派——不张扬、不爱炫耀，但日子过得比谁都明白。你务实不虚荣、会赚钱也会生活，一碗靓汤比什么心灵鸡汤都管用。你身上有一种让人安心的实在劲儿。",
-    tips:["你的务实让你避开了很多坑，但偶尔「冲动」一把，会有意外惊喜","你总是照顾别人，也记得偶尔让人照顾照顾你","你的人生哲学是「食得是福」，继续保持，但别忘了体检"]}
-};
+shanghai:{name:"上海",en:"Shanghai",tags:["精致","分寸感","效率","摩登","务实"],
+  desc:"你的灵魂属于上海。你讲究生活品质和做事效率，分寸感拿捏得刚好——不卑不亢，不冷也不过度热情。你看似精致讲究，骨子里却是实干派。在喧嚣的城市里，你始终保有自己的节奏和标准。",
+  tips:["你的分寸感是优点，但偶尔放下「体面」和朋友吐吐槽会更轻松","效率是你最强的武器，但有些事——比如一段关系——慢一点反而更好","保持对世界的好奇心，上海之外还有更广阔的舞台"]},
+beijing:{name:"北京",en:"Beijing",tags:["大气","局气","传统","规矩","厚重"],
+  desc:"你的灵魂属于北京。你讲究规矩和体面，心里有杆秤——什么事该怎么办，你门儿清。你看重承诺和信义，做人做事不喜欢花哨，更喜欢实在。你身上有一种不怒自威的厚重感，让人信赖。",
+  tips:["你的靠谱让人敬佩，但偶尔放下架子，生活会多一些烟火气","规则是骨架，但不要让它变成束缚——有些小「出格」也是人生","身边有一群信得过的人，是你最大的财富，好好珍惜"]},
+chengdu:{name:"成都",en:"Chengdu",tags:["安逸","巴适","包容","懂生活","烟火气"],
+  desc:"你的灵魂属于成都。你是真正的生活家——懂得忙里偷闲，也知道享受当下的每一刻。你不追求内卷，相信人生是用来体验的，而不是用来焦虑的。你的松弛感，让身边所有人都觉得舒服自在。",
+  tips:["你的安逸是天赋技能，但偶尔需要一点「紧迫感」，重要的事别拖延","你的包容让很多人愿意靠近你，但也记得给自己留点独处时间","你活出了很多人羡慕的样子，继续保持，但别忘了还有诗和远方"]},
+shenzhen:{name:"深圳",en:"Shenzhen",tags:["奋斗","创新","务实","年轻","行动派"],
+  desc:"你的灵魂属于深圳。你是天生的实干家——不纠结过去、不空谈理想，想了就去做，做了就要成。你相信努力能改变命运，也相信这个时代给了普通人机会。你的行动力和执行力，是同辈中的天花板。",
+  tips:["你的拼劲让人佩服，但记得定期给自己「关掉电源」充充电","效率不是一切，偶尔慢下来看看路边的风景，不会影响你到达终点","找到一个能理解你野心、也愿意陪你一起奋斗的人"]},
+hangzhou:{name:"杭州",en:"Hangzhou",tags:["温润","诗意","精致","灵动","沉静"],
+  desc:"你的灵魂属于杭州。你身上有一种江南的诗意和温润——不张扬、不攻击，但内心丰盈。你喜欢有美感的东西，注重生活品质和内心感受。你不急着证明什么，因为你知道好东西需要时间沉淀。",
+  tips:["你的细腻是天赋，试着把感受写下来或拍下来，会有人被你的灵气打动","偶尔跳出舒适区去闯一闯，温润配一点锋芒会更迷人","找一个能和你细水长流的人，你的温柔值得被好好珍惜"]},
+xian:{name:"西安",en:"Xi'an",tags:["厚重","沉稳","底蕴","不张扬","念旧"],
+  desc:"你的灵魂属于西安。你骨子里有一种厚重的底蕴——不急着追赶潮流，因为你相信时间自会证明真正的价值。你念旧、重感情，做人做事有自己的原则底线，不轻易动摇。你的沉稳在这个浮躁的时代很难得。",
+  tips:["你的厚重是财富，但偶尔尝试新鲜事物，会打开新世界的大门","念旧是好事，但不要因为过去而错过当下的机会和人","你不需要站在 C 位，但你的分量，时间会证明"]},
+chongqing:{name:"重庆",en:"Chongqing",tags:["江湖气","直爽","热烈","立体","生命力"],
+  desc:"你的灵魂属于重庆。你身上有一种江湖儿女的直爽和热烈——有话直说、有气就出、有爱就追。你不喜欢拐弯抹角，凡事讲究一个痛快。你的生命力和感染力，让周围的人都觉得活着真带劲。",
+  tips:["你的直爽很解压，但偶尔收一收锋芒，有些关系需要一点柔软","你的热情和行动力是超级武器，找到对的方向集中发力","你适合找一个能和你一起疯、也能在你暴躁时给你一杯冰水的人"]},
+xiamen:{name:"厦门",en:"Xiamen",tags:["文艺","清新","慢节奏","小资","宁静"],
+  desc:"你的灵魂属于厦门。你是天生的文艺生活家——喜欢安静、享受独处、有自己的精神世界。你不太在意别人的眼光，更在意自己的感受。生活对你来说是一首需要慢慢品读的诗，而不是一本催着翻页的工作手册。",
+  tips:["你的慢节奏在快时代里是一种奢侈，守护好它，但也记得偶尔加速","你的感受力很强，试着用创作输出——写作、摄影、音乐都好","你不需要太多朋友，但你需要一个懂你电量消耗模式的人"]},
+guangzhou:{name:"广州",en:"Guangzhou",tags:["务实","低调","美食","人情味","松弛"],
+  desc:"你的灵魂属于广州。你是真正的低调实力派——不张扬、不爱炫耀，但日子过得比谁都明白。你务实不虚荣、会赚钱也会生活，一碗靓汤比什么心灵鸡汤都管用。你身上有一种让人安心的实在劲儿。",
+  tips:["你的务实让你避开了很多坑，但偶尔「冲动」一把会有意外惊喜","你总是照顾别人，也记得偶尔让人照顾照顾你","你的人生哲学是「食得是福」，继续保持，但别忘了体检"]},
+nanjing:{name:"南京",en:"Nanjing",tags:["书卷气","沉稳","包容","厚重","有故事"],
+  desc:"你的灵魂属于南京。你身上有一种书卷气——不疾不徐，肚子里有货但不轻易拿出来。你经历过风雨，所以更懂平淡的可贵。你的包容和温和，不是软弱，而是看过太多之后的一种豁达。",
+  tips:["你的沉稳是底气，但偶尔也需要一点少年感来冲一冲","你善于倾听和包容，但也要学会表达自己的需求","在你的世界里，一壶茶、一本书就是一种高质量的快乐"]},
+changsha:{name:"长沙",en:"Changsha",tags:["娱乐精神","火辣","不服输","市井","快乐"],
+  desc:"你的灵魂属于长沙。你是天生带梗的人——走到哪都能把气氛搞热。你乐观、豁达、不信邪，生活再难也能笑着扛过去。你享受热闹和市井气，深夜街边一碗粉就让你觉得人间值得。",
+  tips:["你的快乐感染力是天赋，但真正的快乐也需要一点静下来的勇气","你的不服输让你走得很远，但有时候服个软也不丢人","找到一个能陪你疯、也能在深夜认真听你说话的人"]},
+kunming:{name:"昆明",en:"Kunming",tags:["慵懒","温和","自然","不紧不慢","阳光"],
+  desc:"你的灵魂属于昆明。你就像是自带恒温系统的人——不急不躁，不冷不热，一切都刚刚好。你喜欢阳光、新鲜空气和花草，对物质没有太大执念。你的温柔不是软弱，而是一种选择。",
+  tips:["你的温和是稀有的品质，但偶尔也需要为自己争取","不要觉得「不争」是缺点，在你的节奏里你已经做得很好了","大自然永远是治愈你的良药，不开心的时候去公园走走"]},
+haerbin:{name:"哈尔滨",en:"Harbin",tags:["豪爽","大气","坚韧","冰与火","浪漫"],
+  desc:"你的灵魂属于哈尔滨。你外表可能冷，但内心有一团火——对朋友豪爽仗义，对生活充满热情。你能在冰天雪地里活得热气腾腾，你的坚韧和浪漫一点都不矛盾。你是那种「冷面热心」的宝藏。",
+  tips:["你的豪爽让人喜欢，但偶尔也给自己留点余地，不是所有人都值得你全情投入","你的坚韧帮你扛过了很多，但也别忘了偶尔柔软下来","冰城的浪漫需要懂的人欣赏，你会有那个人的"]},
+wuhan:{name:"武汉",en:"Wuhan",tags:["江湖气","韧性","直率","热闹","不服周"],
+  desc:"你的灵魂属于武汉。你身上有一种码头江湖的直率和韧性——说话嗓门大、做事不犹豫、遇到困难不低头。你不服输，有股子「不信邪」的劲头。在热闹的市井烟火中，你活出了自己的节奏。",
+  tips:["你的直率和韧性是你的底色，但偶尔温柔一点会有惊喜","你太能扛了，但有时候也要学会说「我需要帮助」","一碗热干面、一次江边散步就能让你满血复活，保持这种简单快乐的能力"]},
+suzhou:{name:"苏州",en:"Suzhou",tags:["细腻","讲究","园林气质","精致","温婉"],
+  desc:"你的灵魂属于苏州。你有一种刻在骨子里的讲究——不是炫富式的铺张，而是对细节、品质和美感的本能追求。你温和但有自己的坚持，玲珑但绝不软弱。你的精致是一种生活方式，而不是人设。",
+  tips:["你的细腻让你能发现别人看不到的美好，这是你的天赋","偶尔放下「讲究」，粗犷一点也有别样的快乐","你需要一个能欣赏你的精致、也能包容你偶尔任性的人"]},
+qingdao:{name:"青岛",en:"Qingdao",tags:["清爽","大气","海洋","不浮躁","真诚"],
+  desc:"你的灵魂属于青岛。你像海风一样清爽直接——不拐弯抹角，不虚头巴脑。你有一种北方海滨城市特有的大气和干净。不争不抢但心里有数，待人真诚不设防。你的存在，让人感到舒爽和安心。",
+  tips:["你的真诚是你最宝贵的品质，继续保持，但也要记得保护自己","你骨子里的「海洋性格」让你开阔大气，但也偶尔试着向内探索","找一个能和你一起吹海风、喝啤酒、聊人生的人"]
+}};
 
-var answers = [], currentQ = 0;
+var answers=[], cur=0;
 
 function start(){
-  answers = new Array(12).fill(-1); currentQ = 0;
+  answers=new Array(40).fill(-1); cur=0;
   document.getElementById("page-intro").style.display="none";
   document.getElementById("page-submit").style.display="none";
   document.getElementById("page-result").style.display="none";
@@ -320,71 +273,56 @@ function start(){
   renderQ(0); window.scrollTo(0,0);
 }
 
-function renderQ(idx){
-  currentQ = idx;
-  var q = Q[idx], sel = answers[idx];
-  var h = '<div class="q-label">Question '+(idx+1)+' / 12</div>';
-  h += '<div class="q-title">'+q.t+'</div><div class="opt-list">';
-  var letters = ["A","B","C","D"];
-  for(var i=0;i<q.o.length;i++){
-    var cls = sel===i ? "opt-item selected" : "opt-item";
-    h += '<button class="'+cls+'" onclick="selectOpt('+idx+','+i+')"><span class="opt-idx">'+letters[i]+'</span>'+q.o[i]+'</button>';
+function renderQ(i){
+  cur=i; var q=Q[i], s=answers[i];
+  var h='<div class="q-label">Question '+(i+1)+' / 40</div>';
+  h+='<div class="q-title">'+q.t+'</div><div class="opt-list">';
+  var L=["A","B","C","D"];
+  for(var j=0;j<q.o.length;j++){
+    var c=s===j?"opt-item selected":"opt-item";
+    h+='<button class="'+c+'" onclick="selectOpt('+i+','+j+')"><span class="opt-idx">'+L[j]+'</span>'+q.o[j]+'</button>';
   }
-  h += '</div>';
-  document.getElementById("q-card").innerHTML = h;
-  document.getElementById("bar-fill").style.width = Math.round((idx+1)/12*100)+'%';
-  document.getElementById("bar-num").textContent = (idx+1)+' / 12';
-  document.getElementById("page-hint").textContent = '';
-  var bp = document.getElementById("btn-prev"), bn = document.getElementById("btn-next");
-  if(idx===0){ bp.style.visibility='hidden'; bn.textContent='下一题'; }
-  else if(idx===11){ bp.style.visibility='visible'; bn.textContent='完成答题'; }
-  else { bp.style.visibility='visible'; bn.textContent='下一题'; }
+  h+='</div>';
+  document.getElementById("q-card").innerHTML=h;
+  document.getElementById("bar-fill").style.width=Math.round((i+1)/40*100)+'%';
+  document.getElementById("bar-num").textContent=(i+1)+' / 40';
+  document.getElementById("page-hint").textContent='';
+  var bp=document.getElementById("btn-prev"),bn=document.getElementById("btn-next");
+  if(i===0){bp.style.visibility='hidden';bn.textContent='下一题';}
+  else if(i===39){bp.style.visibility='visible';bn.textContent='完成答题';}
+  else{bp.style.visibility='visible';bn.textContent='下一题';}
   window.scrollTo(0,80);
 }
 
-function selectOpt(qIdx,optIdx){
-  answers[qIdx] = optIdx; renderQ(qIdx);
-  var allDone=true;
-  for(var i=0;i<12;i++){if(answers[i]===-1){allDone=false;break;}}
-  document.getElementById("page-hint").textContent = allDone ? '全部完成，点击「完成答题」查看结果' : '';
-}
+function selectOpt(qI,oI){answers[qI]=oI;renderQ(qI);var d=true;for(var i=0;i<40;i++)if(answers[i]===-1){d=false;break;}document.getElementById("page-hint").textContent=d?'全部完成，点击「完成答题」查看结果':'';}
 
-function nav(dir){
-  var nxt = currentQ + dir;
-  if(dir===1 && currentQ===11){
-    var u=[];
-    for(var i=0;i<12;i++){if(answers[i]===-1)u.push(i+1);}
+function nav(d){
+  var n=cur+d;
+  if(d===1&&cur===39){
+    var u=[];for(var i=0;i<40;i++)if(answers[i]===-1)u.push(i+1);
     document.getElementById("page-quiz").style.display="none";
     document.getElementById("page-submit").style.display="block";
-    var hint=document.getElementById("submit-hint");
-    if(u.length>0){ hint.style.display="block"; hint.textContent="第 "+u.join("、")+" 题未作答，可返回补充或直接提交"; }
-    else { hint.style.display="none"; }
-    window.scrollTo(0,0);
-    return;
+    var h=document.getElementById("submit-hint");
+    if(u.length>0){h.style.display="block";h.textContent="第 "+u.join("、")+" 题未作答，可返回补充或直接提交";}
+    else{h.style.display="none";}
+    window.scrollTo(0,0);return;
   }
-  if(nxt>=0 && nxt<12) renderQ(nxt);
+  if(n>=0&&n<40)renderQ(n);
 }
 
-function goBack(){
-  document.getElementById("page-submit").style.display="none";
-  document.getElementById("page-quiz").style.display="block";
-  renderQ(11);
-}
+function goBack(){document.getElementById("page-submit").style.display="none";document.getElementById("page-quiz").style.display="block";renderQ(39);}
 
 function submitTest(){
-  var scores=[0,0,0,0,0,0,0,0,0];
-  for(var i=0;i<12;i++){
+  var s=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  for(var i=0;i<40;i++){
     var idx=answers[i]; if(idx===-1)idx=0;
-    var w=weights[i][idx];
-    for(var j=0;j<9;j++)scores[j]+=w[j];
+    for(var j=0;j<16;j++)s[j]+=W[i][idx][j];
   }
-  var max=0,mi=0;
-  for(var j=0;j<9;j++){if(scores[j]>max){max=scores[j];mi=j;}}
-  var total=0; for(var j=0;j<9;j++)total+=scores[j];
+  var max=0,mi=0;for(var j=0;j<16;j++){if(s[j]>max){max=s[j];mi=j;}}
+  var total=0;for(var j=0;j<16;j++)total+=s[j];
   var pct=Math.round(max/total*100);
   var city=cities[cityKeys[mi]];
-
-  var ranked=[]; for(var j=0;j<9;j++)ranked.push({k:cityKeys[j],s:scores[j]});
+  var ranked=[];for(var j=0;j<16;j++)ranked.push({k:cityKeys[j],s:s[j]});
   ranked.sort(function(a,b){return b.s-a.s;});
 
   var h='';
@@ -392,28 +330,19 @@ function submitTest(){
   h+='<div class="rh-city">你的灵魂属于<strong>'+city.name+'</strong></div>';
   h+='<div class="rh-en">'+city.en+'</div>';
   h+='<div class="match-circle" style="--pct:'+(pct/100*360)+'deg"><span class="match-val">'+pct+'%</span></div>';
-  h+='<div class="match-lab">MATCH RATE</div>';
-  h+='<div class="tag-wrap">';
-  for(var t=0;t<city.tags.length;t++) h+='<span class="tag">'+city.tags[t]+'</span>';
+  h+='<div class="match-lab">MATCH RATE</div><div class="tag-wrap">';
+  for(var t=0;t<city.tags.length;t++)h+='<span class="tag">'+city.tags[t]+'</span>';
   h+='</div></div>';
-
   h+='<div class="city-desc anim"><p>'+city.desc+'</p></div>';
-
   h+='<div class="tips-card anim anim-d1"><h3>生活共鸣</h3>';
-  for(var t=0;t<city.tips.length;t++){
-    h+='<div class="tip-row"><div class="tip-icon">'+(t+1)+'</div><div>'+city.tips[t]+'</div></div>';
-  }
+  for(var t=0;t<city.tips.length;t++)h+='<div class="tip-row"><div class="tip-icon">'+(t+1)+'</div><div>'+city.tips[t]+'</div></div>';
   h+='</div>';
-
   h+='<div class="other-cities anim anim-d2"><h3>完整排行</h3>';
   for(var r=0;r<ranked.length;r++){
     var rc=cities[ranked[r].k], rp=Math.round(ranked[r].s/total*100);
-    h+='<div class="oc-row"><span style="font-weight:600;min-width:28px;">'+(r+1)+'</span><span style="min-width:70px;font-size:12px;">'+rc.name+'</span><div class="oc-bar-wrap"><div class="oc-bar" style="width:'+rp+'%"></div></div><span class="oc-pct">'+rp+'%</span></div>';
+    h+='<div class="oc-row"><span style="font-weight:600;min-width:28px;">'+(r+1)+'</span><span style="min-width:72px;font-size:12px;">'+rc.name+'</span><div class="oc-bar-wrap"><div class="oc-bar" style="width:'+rp+'%"></div></div><span class="oc-pct">'+rp+'%</span></div>';
   }
-  h+='</div>';
-
-  h+='<div class="final-actions anim anim-d3"><button class="btn btn-primary" onclick="start()">重新测试</button></div>';
-
+  h+='</div><div class="final-actions anim anim-d3"><button class="btn btn-primary" onclick="start()">重新测试</button></div>';
   document.getElementById("page-submit").style.display="none";
   document.getElementById("result-content").innerHTML=h;
   document.getElementById("page-result").style.display="block";
